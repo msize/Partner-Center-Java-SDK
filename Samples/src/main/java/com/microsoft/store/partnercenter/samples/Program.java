@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.microsoft.store.partnercenter.models.customers.CustomerSearchField;
+import com.microsoft.store.partnercenter.samples.agreements.CreateAgreement;
+import com.microsoft.store.partnercenter.samples.agreements.GetAgreementMetadata;
+import com.microsoft.store.partnercenter.samples.agreements.GetAgreements;
 import com.microsoft.store.partnercenter.samples.analytics.GetPartnerLicensesDeploymentAnalytics;
 import com.microsoft.store.partnercenter.samples.analytics.GetPartnerLicensesUsageAnalytics;
 import com.microsoft.store.partnercenter.samples.analytics.GetCustomerLicensesDeploymentAnalytics;
@@ -161,6 +164,7 @@ public class Program
         mainScenarios.add( Program.getOfferScenarios(context));
         mainScenarios.add( Program.getProductScenarios(context));
         mainScenarios.add( Program.getCustomerProductsScenarios(context));
+        mainScenarios.add( Program.getAgreementScenarios(context));
         mainScenarios.add( Program.getOrderScenarios(context));
         mainScenarios.add( Program.getSubscriptionScenarios(context));
         mainScenarios.add( Program.getRatedUsageScenarios(context));
@@ -238,6 +242,21 @@ public class Program
         offerScenarios.add( new GetCustomerOfferCategories( context ) );
 
         return new AggregatePartnerScenario( "Offer samples", offerScenarios, context );
+    }
+
+    /**
+     * Gets the agreement scenarios.
+     *
+     * @param context A scenario context.
+     * @return The agreement scenarios.
+     */
+    private static IPartnerScenario getAgreementScenarios( IScenarioContext context )
+    {
+        List<IPartnerScenario> agreementScenarios = new ArrayList<IPartnerScenario>();
+        agreementScenarios.add( new GetAgreementMetadata( context ) );
+        agreementScenarios.add( new CreateAgreement( context ) );
+        agreementScenarios.add( new GetAgreements( context ) );
+        return new AggregatePartnerScenario( "Agreement samples", agreementScenarios, context );
     }
 
     /**
